@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/alecthomas/kingpin/v2"
+	"github.com/frida/frida-go/frida"
 )
 
 var (
@@ -33,6 +34,8 @@ var (
 	httpName    = httpCommand.Flag("name", "package or label").Required().String()
 	httpDevi    = httpCommand.Flag("devi", "devi").String()
 	httpAddr    = httpCommand.Flag("addr", "listen addr").Default("0.0.0.0:5566").String()
+
+	versionCommand = kingpin.Command("version", "frida version")
 )
 
 func main() {
@@ -73,6 +76,8 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
+	case versionCommand.FullCommand():
+		fmt.Println(frida.Version())
 	default:
 		fmt.Println(cmd)
 	}
