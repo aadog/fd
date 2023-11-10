@@ -12,5 +12,4 @@ var fmgr *frida.DeviceManager
 
 func init() {
 	fmgr = frida.NewDeviceManager()
-	//fmgr.AddRemoteDevice("192.168.50.178:27042", frida.NewRemoteDeviceOptions())
 }

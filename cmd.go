@@ -7,8 +7,7 @@ import (
 	"fmt"
 	"github.com/aadog/dict-go"
 	"github.com/frida/frida-go/frida"
-	"github.com/kataras/iris/v12"
-	context2 "github.com/kataras/iris/v12/context"
+	"github.com/gin-gonic/gin"
 	"io/fs"
 	"log"
 	"os"
@@ -570,10 +569,10 @@ func http(script string, name string, devi string, addr string) error {
 		return err
 	}
 	defer sc.Unload()
-	webApp := iris.New()
-	webApp.Post("/call", func(c *context2.Context) {
+	webApp := gin.New()
+	webApp.POST("/call", func(c *gin.Context) {
 		if sc.IsDestroyed() == true {
-			c.JSON(ResRpcCall{
+			c.JSON(200, ResRpcCall{
 				ResRpcCall: true,
 				Error:      Ptr("application IsDestroyed"),
 				Data:       nil,
@@ -581,9 +580,9 @@ func http(script string, name string, devi string, addr string) error {
 			return
 		}
 		var req ReqRpcCall
-		err := c.ReadJSON(&req)
+		err := c.ShouldBindJSON(&req)
 		if err != nil {
-			c.JSON(ResRpcCall{
+			c.JSON(200, ResRpcCall{
 				ResRpcCall: true,
 				Error:      Ptr(err.Error()),
 				Data:       nil,
@@ -594,7 +593,7 @@ func http(script string, name string, devi string, addr string) error {
 		if req.Timeout != "" {
 			timeout, err = time.ParseDuration(req.Timeout)
 			if err != nil {
-				c.JSON(ResRpcCall{
+				c.JSON(200, ResRpcCall{
 					ResRpcCall: true,
 					Error:      Ptr(err.Error()),
 					Data:       nil,
@@ -604,7 +603,7 @@ func http(script string, name string, devi string, addr string) error {
 		}
 		ctx, _ := context.WithTimeout(context.TODO(), timeout)
 		jsr := sc.ExportsCallWithContext(ctx, req.Func, req.Args...)
-		c.JSON(ResRpcCall{
+		c.JSON(200, ResRpcCall{
 			ResRpcCall: true,
 			Error:      nil,
 			Data:       jsr,
@@ -613,7 +612,7 @@ func http(script string, name string, devi string, addr string) error {
 	})
 	go func() {
 		fmt.Println("rpc run address:", addr)
-		err := webApp.Run(iris.Addr(addr))
+		err := webApp.Run(addr)
 		if err != nil {
 			fmt.Println(err.Error())
 			taskCancel()
