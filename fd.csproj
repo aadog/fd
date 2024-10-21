@@ -12,7 +12,7 @@
         <RepositoryType>git</RepositoryType>
         <PackAsTool>True</PackAsTool>
         <IsPackable>false</IsPackable>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
     </PropertyGroup>
     
     <ItemGroup>
@@ -64,5 +64,11 @@
         <NativeLibrary Include="FridaCoreSharedWindows.lib" Condition="$(RuntimeIdentifier.StartsWith('win'))" />
 
         <DirectPInvoke Include="FridaCoreSharedWindows" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="aadog.PInvoke.FridaCore">
+        <HintPath>..\PInvoke.FridaCore\bin\Release\net9.0\aadog.PInvoke.FridaCore.dll</HintPath>
+      </Reference>
     </ItemGroup>
 </Project>
