@@ -1,0 +1,68 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <PublishAot>true</PublishAot>
+        <TrimMode>partial</TrimMode>
+        <Title>frida debug tool</Title>
+        <PackageProjectUrl>https://github.com/aadog/fd</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/aadog/fd</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+        <PackAsTool>True</PackAsTool>
+        <IsPackable>false</IsPackable>
+        <TargetFramework>net8.0</TargetFramework>
+    </PropertyGroup>
+    
+    <ItemGroup>
+      <PackageReference Include="CommandLineParser" Version="2.9.1" />
+      <PackageReference Include="Microsoft.AspNetCore.App" Version="2.2.8" />
+      <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="9.0.0-rc.2.24473.5" />
+      <PackageReference Include="Microsoft.NET.ILLink.Tasks" Version="9.0.0-rc.2.24473.5" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+      <PackageReference Include="Nito.AsyncEx" Version="5.1.2" />
+      <PackageReference Include="Nito.AsyncEx.Context" Version="5.1.2" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <None Remove="frida-agent-example\tsconfig.json" />
+      <EmbeddedResource Include="frida-agent-example\tsconfig.json" />
+      <None Remove="frida-agent-example\.gitignore" />
+      <EmbeddedResource Include="frida-agent-example\.gitignore" />
+      <None Remove="frida-agent-example\package.json" />
+      <EmbeddedResource Include="frida-agent-example\package.json" />
+      <None Remove="frida-agent-example\package-lock.json" />
+      <EmbeddedResource Include="frida-agent-example\package-lock.json" />
+      <None Remove="frida-agent-example\README.md" />
+      <EmbeddedResource Include="frida-agent-example\README.md" />
+      <None Remove="frida-agent-example\agent\index.ts" />
+      <EmbeddedResource Include="frida-agent-example\agent\index.ts" />
+      <None Remove="frida-agent-example\agent\logger.ts" />
+      <EmbeddedResource Include="frida-agent-example\agent\logger.ts" />
+      <None Remove="swagger.yaml" />
+      <EmbeddedResource Include="swagger.yaml" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <NativeLibrary Include="advapi32.lib" Condition="$(RuntimeIdentifier.StartsWith('win'))" />
+        <NativeLibrary Include="crypt32.lib" Condition="$(RuntimeIdentifier.StartsWith('win'))" />
+        <NativeLibrary Include="dnsapi.lib" Condition="$(RuntimeIdentifier.StartsWith('win'))" />
+        <NativeLibrary Include="gdi32.lib" Condition="$(RuntimeIdentifier.StartsWith('win'))" />
+        <NativeLibrary Include="iphlpapi.lib" Condition="$(RuntimeIdentifier.StartsWith('win'))" />
+        <NativeLibrary Include="kernel32.lib" Condition="$(RuntimeIdentifier.StartsWith('win'))" />
+        <NativeLibrary Include="ole32.lib" Condition="$(RuntimeIdentifier.StartsWith('win'))" />
+        <NativeLibrary Include="psapi.lib" Condition="$(RuntimeIdentifier.StartsWith('win'))" />
+        <NativeLibrary Include="secur32.lib" Condition="$(RuntimeIdentifier.StartsWith('win'))" />
+        <NativeLibrary Include="shell32.lib" Condition="$(RuntimeIdentifier.StartsWith('win'))" />
+        <NativeLibrary Include="shlwapi.lib" Condition="$(RuntimeIdentifier.StartsWith('win'))" />
+        <NativeLibrary Include="user32.lib" Condition="$(RuntimeIdentifier.StartsWith('win'))" />
+        <NativeLibrary Include="winmm.lib" Condition="$(RuntimeIdentifier.StartsWith('win'))" />
+        <NativeLibrary Include="ws2_32.lib" Condition="$(RuntimeIdentifier.StartsWith('win'))" />
+        <NativeLibrary Include="Setupapi.lib" Condition="$(RuntimeIdentifier.StartsWith('win'))" />
+        <NativeLibrary Include="FridaCoreSharedWindows.lib" Condition="$(RuntimeIdentifier.StartsWith('win'))" />
+
+        <DirectPInvoke Include="FridaCoreSharedWindows" />
+    </ItemGroup>
+</Project>

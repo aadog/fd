@@ -1,0 +1,110 @@
+openapi: "3.1.0"
+info:
+  title: Http Rpc Api
+  description: Javascript Exports Rpc Tools.
+  version: 1.0.0
+
+paths:
+  /rpc:
+    post:
+      summary: Call Javascript Exports Rpc Function.
+      description: Call Javascript Exports Rpc Function.
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                methodName:
+                  type: string
+                  required: true
+                args:
+                  type: array
+                  required: true
+            examples: 
+              add:
+                description: "call add"
+                value: 
+                  methodName: "add"
+                  args: [1,2]
+      responses: 
+        200:
+          description: "http ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: 
+                  id:
+                    type: string
+                    description: "call id"
+                  status:
+                    type: string
+                    description: "call status"
+                    enum:
+                      ok
+                      error
+                  result:
+                    type: object
+                    description: "return object or error message"
+              examples:
+                ok:
+                  description: "rpc ok"
+                  value:
+                    id: "e38c1eda-a352-49bd-bb6c-ad279c57f7c3"
+                    status: "ok"
+                    result: 3
+                error:
+                  description: "rpc error"
+                  value:
+                    id: "e38c1eda-a352-49bd-bb6c-ad279c57f7c3"
+                    status: "error"
+                    result: "script call error"
+
+
+#      produces:
+#        - application/json
+#      parameters:
+#        - in: body
+#          name: user
+#          description: The user to create.
+#          schema:
+#            type: object
+#            required:
+#              - methodName
+#              - params
+#            properties:
+#              methodName:
+#                type: string
+#                example: "add"
+#              args:
+#                type: array
+#                example: [1,2]
+#      responses:
+#        200:
+#          description: OK
+#          schema: 
+#            type: object
+#            properties: 
+#              id:
+#                type: string
+#                description: "call id"
+#                example: "e38c1eda-a352-49bd-bb6c-ad279c57f7c3"
+#              status:
+#                type: string
+#                description: "call status"
+#                enum:
+#                  - "ok"
+#                  - "error"
+#              result:
+#                type: object
+#                description: "return object or error message"
+#                example: "3"
+#          examples: 
+#              test:
+#                value:
+#                  id: "123"
+#                  status: "error"
+#                  result: 3
+#            
