@@ -158,7 +158,7 @@ public class HttpRpcCommand:ICommand
         sessionOptions.PersistTimeout = 5000;
         var session=device.AttachProcess(pid,sessionOptions);
         var scriptOptions=new FridaScriptOptions();
-        var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
+        var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
         script.InstallRpcHandle();
         script.OnMessage(OnMessage);
         script.Load();
@@ -236,7 +236,7 @@ public class HttpRpcCommand:ICommand
             sessionOptions.PersistTimeout = 5000;
             var session=device.AttachProcess(spawnPid,sessionOptions);
             var scriptOptions=new FridaScriptOptions();
-            var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
+            var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
             script.InstallRpcHandle();
             script.OnMessage(OnMessage);
             script.Load();
@@ -283,7 +283,7 @@ public class HttpRpcCommand:ICommand
             sessionOptions.PersistTimeout = 5000;
             var session=device.AttachProcess(pid,sessionOptions);
             var scriptOptions=new FridaScriptOptions();
-            var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
+            var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
             script.OnMessage(OnMessage);
             script.InstallRpcHandle();
             script.Load();
@@ -346,7 +346,7 @@ public class HttpRpcCommand:ICommand
             sessionOptions.PersistTimeout = 5000;
             var session=device.AttachProcess(spawnPid,sessionOptions);
             var scriptOptions=new FridaScriptOptions();
-            var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
+            var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
             script.InstallRpcHandle();
             script.OnMessage(OnMessage);
             script.Load();
@@ -393,7 +393,7 @@ public class HttpRpcCommand:ICommand
             sessionOptions.PersistTimeout = 5000;
             var session=device.AttachProcess(pid,sessionOptions);
             var scriptOptions=new FridaScriptOptions();
-            var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
+            var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
             script.InstallRpcHandle();
             script.OnMessage(OnMessage);
             script.Load();
@@ -452,7 +452,7 @@ public class HttpRpcCommand:ICommand
             sessionOptions.PersistTimeout = 5000;
             var session=device.AttachProcess(spawnPid,sessionOptions);
             var scriptOptions=new FridaScriptOptions();
-            var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
+            var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
             script.InstallRpcHandle();
             script.OnMessage(OnMessage);
             script.Load();
@@ -499,7 +499,7 @@ public class HttpRpcCommand:ICommand
             sessionOptions.PersistTimeout = 5000;
             var session=device.AttachProcess(pid,sessionOptions);
             var scriptOptions=new FridaScriptOptions();
-            var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
+            var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
             script.InstallRpcHandle();
             script.OnMessage(OnMessage);
             script.Load();
