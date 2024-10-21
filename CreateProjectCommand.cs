@@ -19,7 +19,7 @@ public class CreateProjectCommand:ICommand
         var names=assembly.GetManifestResourceNames();
         foreach (var name in names)
         {
-            if (!name.StartsWith("fd.frida.agent.example"))
+            if (!name.StartsWith("fd.frida_agent_example"))
             {
                 continue;
             }
@@ -28,8 +28,8 @@ public class CreateProjectCommand:ICommand
             {
                 throw new FileNotFoundException($"Resource {name} not found in assembly {assembly.FullName}");
             }
-
-            var resourcePathArr = name.Split(".");
+            var fixName = name.Replace("fd.frida_agent_example","fd");
+            var resourcePathArr = fixName.Split(".");
             var dirPathArr = resourcePathArr[1..^2];
             var dirPath = Path.Combine(outDirPath, Path.Combine(dirPathArr));
             var fileNameArr = resourcePathArr[^2..];
