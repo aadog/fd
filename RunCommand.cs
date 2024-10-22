@@ -84,6 +84,7 @@ public class RunCommand:ICommand
 
     public void OnMessage(IntPtr script,string message,IntPtr data,IntPtr userData)
     {
+
         var jsonMessage = JsonConvert.DeserializeObject<JObject>(message);
         var messageType = jsonMessage["type"].ToString();
         switch (messageType)
@@ -98,7 +99,7 @@ public class RunCommand:ICommand
                 }
                 if (level == "info")
                 {
-                    Global.Logger.LogInformation(payload);
+                    Console.WriteLine(payload);
                 }
                 break;
             }
@@ -168,10 +169,12 @@ public class RunCommand:ICommand
             throw new ApplicationException($"No process {pid} found");
         }
         var sessionOptions = new FridaSessionOptions();
+  
         sessionOptions.PersistTimeout = 5000;
         var session=device.AttachProcess(pid,sessionOptions);
         var scriptOptions=new FridaScriptOptions();
-        var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
+        //scriptOptions.Name = "test1";
+        var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
         script.OnMessage(OnMessage);
         script.Load();
         var mainLoop = Frida.FridaMainLoopNew(false);
@@ -244,7 +247,7 @@ public class RunCommand:ICommand
             sessionOptions.PersistTimeout = 5000;
             var session=device.AttachProcess(spawnPid,sessionOptions);
             var scriptOptions=new FridaScriptOptions();
-            var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
+            var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
             script.OnMessage(OnMessage);
             script.Load();
             device.ResumeProcess(spawnPid);
@@ -271,7 +274,8 @@ public class RunCommand:ICommand
         }
         else
         {
-            var process = device.FindProcessByName(Process,new FridaProcessMatchOptions());
+            var options = new FridaProcessMatchOptions();
+            var process = device.FindProcessByName(Process,options);
             if (process == null)
             {
                 throw new ApplicationException($"No process {Process} found");
@@ -286,7 +290,7 @@ public class RunCommand:ICommand
             sessionOptions.PersistTimeout = 5000;
             var session=device.AttachProcess(pid,sessionOptions);
             var scriptOptions=new FridaScriptOptions();
-            var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
+            var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
             script.OnMessage(OnMessage);
             script.InstallRpcHandle();
             script.Load();
@@ -345,7 +349,7 @@ public class RunCommand:ICommand
             sessionOptions.PersistTimeout = 5000;
             var session=device.AttachProcess(spawnPid,sessionOptions);
             var scriptOptions=new FridaScriptOptions();
-            var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
+            var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
             script.OnMessage(OnMessage);
             script.Load();
             device.ResumeProcess(spawnPid);
@@ -387,7 +391,7 @@ public class RunCommand:ICommand
             sessionOptions.PersistTimeout = 5000;
             var session=device.AttachProcess(pid,sessionOptions);
             var scriptOptions=new FridaScriptOptions();
-            var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
+            var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
             script.OnMessage(OnMessage);
             script.Load();
             var mainLoop = Frida.FridaMainLoopNew(false);
@@ -442,7 +446,7 @@ public class RunCommand:ICommand
             var session=device.AttachProcess(spawnPid,sessionOptions);
             var scriptOptions=new FridaScriptOptions();
            
-            var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
+            var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
             script.OnMessage(OnMessage);
             script.Load();
             device.ResumeProcess(spawnPid);
@@ -485,7 +489,7 @@ public class RunCommand:ICommand
             var session=device.AttachProcess(pid,sessionOptions);
             var scriptOptions=new FridaScriptOptions();
             scriptOptions.Runtime = FridaScriptRuntime.FRIDA_SCRIPT_RUNTIME_QJS;
-            var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
+            var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
             script.OnMessage(OnMessage);
             script.Load();
             var mainLoop = Frida.FridaMainLoopNew(false);

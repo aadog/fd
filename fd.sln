@@ -1,6 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35410.144 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fd", "fd.csproj", "{023E82AC-6253-4012-8DDC-E91AD58C552F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PInvoke.FridaCore", "..\PInvoke.FridaCore\PInvoke.FridaCore.csproj", "{DA557728-0325-4C11-AA62-DF9B96C43C2A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +17,12 @@ Global
 		{023E82AC-6253-4012-8DDC-E91AD58C552F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{023E82AC-6253-4012-8DDC-E91AD58C552F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{023E82AC-6253-4012-8DDC-E91AD58C552F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA557728-0325-4C11-AA62-DF9B96C43C2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA557728-0325-4C11-AA62-DF9B96C43C2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA557728-0325-4C11-AA62-DF9B96C43C2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA557728-0325-4C11-AA62-DF9B96C43C2A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal

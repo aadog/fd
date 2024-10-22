@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "fd": {
+      "commandName": "Project",
+      "commandLineArgs": "run C:\\Users\\mmk\\src\\fd-dts9\\_agent.js --pid 31176"
+    }
+  }
+}
