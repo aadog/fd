@@ -174,7 +174,7 @@ public class RunCommand:ICommand
         var session=device.AttachProcess(pid,sessionOptions);
         var scriptOptions=new FridaScriptOptions();
         //scriptOptions.Name = "test1";
-        var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
+        var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
         script.OnMessage(OnMessage);
         script.Load();
         var mainLoop = Frida.FridaMainLoopNew(false);
@@ -247,7 +247,7 @@ public class RunCommand:ICommand
             sessionOptions.PersistTimeout = 5000;
             var session=device.AttachProcess(spawnPid,sessionOptions);
             var scriptOptions=new FridaScriptOptions();
-            var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
+            var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
             script.OnMessage(OnMessage);
             script.Load();
             device.ResumeProcess(spawnPid);
@@ -290,7 +290,7 @@ public class RunCommand:ICommand
             sessionOptions.PersistTimeout = 5000;
             var session=device.AttachProcess(pid,sessionOptions);
             var scriptOptions=new FridaScriptOptions();
-            var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
+            var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
             script.OnMessage(OnMessage);
             script.InstallRpcHandle();
             script.Load();
@@ -349,7 +349,7 @@ public class RunCommand:ICommand
             sessionOptions.PersistTimeout = 5000;
             var session=device.AttachProcess(spawnPid,sessionOptions);
             var scriptOptions=new FridaScriptOptions();
-            var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
+            var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
             script.OnMessage(OnMessage);
             script.Load();
             device.ResumeProcess(spawnPid);
@@ -391,7 +391,7 @@ public class RunCommand:ICommand
             sessionOptions.PersistTimeout = 5000;
             var session=device.AttachProcess(pid,sessionOptions);
             var scriptOptions=new FridaScriptOptions();
-            var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
+            var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
             script.OnMessage(OnMessage);
             script.Load();
             var mainLoop = Frida.FridaMainLoopNew(false);
@@ -446,7 +446,7 @@ public class RunCommand:ICommand
             var session=device.AttachProcess(spawnPid,sessionOptions);
             var scriptOptions=new FridaScriptOptions();
            
-            var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
+            var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
             script.OnMessage(OnMessage);
             script.Load();
             device.ResumeProcess(spawnPid);
@@ -489,7 +489,7 @@ public class RunCommand:ICommand
             var session=device.AttachProcess(pid,sessionOptions);
             var scriptOptions=new FridaScriptOptions();
             scriptOptions.Runtime = FridaScriptRuntime.FRIDA_SCRIPT_RUNTIME_QJS;
-            var script =session.CreateScript(File.ReadAllText(ScriptPath!), scriptOptions);
+            var script =session.CreateScript(File.ReadAllBytes(ScriptPath!), scriptOptions);
             script.OnMessage(OnMessage);
             script.Load();
             var mainLoop = Frida.FridaMainLoopNew(false);
