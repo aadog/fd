@@ -1,34 +1,42 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Threading.Channels;
+﻿using aadog.PInvoke.FridaCore;
+using aadog.PInvoke.LibFridaCore;
 using CommandLine;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
-using Microsoft.Extensions.Primitives;
-using Nito.AsyncEx;
-using PInvoke.FridaCore;
+using FridaDeviceManager = aadog.PInvoke.FridaCore.FridaDeviceManager;
+
 
 namespace fd;
 
-class Program
+unsafe class Program
 {
     static int Main(string[] args)
     {
-        Frida.FridaInit();
-        Parser.Default
-            .ParseArguments<ListDeviceCommand, ListApplicationCommand, ListProcessCommand, CreateProjectCommand, CompileCommand, RunCommand,HttpRpcCommand>(args)
-            .MapResult(
-                (ListDeviceCommand command) => command.Execute(),
-                (ListApplicationCommand command) => command.Execute(),
-                (ListProcessCommand command) => command.Execute(),
-                (CreateProjectCommand command) => command.Execute(),
-                (CompileCommand command) => command.Execute(),
-                (RunCommand command) => command.Execute(),
-                (HttpRpcCommand command) => command.Execute(),
-                errs =>1
-            );
-        Global.DeviceManager.Close();
-        Frida.FridaUnref(Global.DeviceManager);
-        Frida.FridaDeInit();
+
+        LibFridaCoreFunctions.IsWindows = true;
+        Frida.Init();
+        Global.DeviceManager = FridaDeviceManager.create();
+        
+        try
+        {
+            Parser.Default
+                .ParseArguments<LsDevicesCommand, PsCommand, CreateProjectCommand,
+                    CompileCommand, RunCommand, HttpRpcCommand>(args)
+                .MapResult(
+                    (LsDevicesCommand command) => command.Execute(),
+                    (PsCommand command) => command.Execute(),
+                    (CreateProjectCommand command) => command.Execute(),
+                    (CompileCommand command) => command.Execute(),
+                    (RunCommand command) => command.Execute(),
+                    (HttpRpcCommand command) => command.Execute(),
+                    errs => 1
+                );
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        //frida bug
+        // Global.DeviceManager.Close();
+        Global.DeviceManager.unRef();
         return 0;
     }
 }
